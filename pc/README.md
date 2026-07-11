@@ -187,21 +187,46 @@ await matchApi.accept('M001', { eta_min: 15 });
 ---
 
 ## PC 端登录效果图
-指挥总览：![PC 指挥总览](../assets/screenshots/pc-dashboard.png)
 
-求助管理：![PC 求助管理](../assets/screenshots/pc-help-requests.png)
+<div align="center">
+
+**指挥总览**
+
+![PC 指挥总览](../assets/screenshots/pc-dashboard.png)
+
+**求助管理**
+
+![PC 求助管理](../assets/screenshots/pc-help-requests.png)
+
+</div>
 
 ## Mobile 端登录效果图
-首页：![Mobile 首页](../assets/screenshots/mobile-home.png)
 
-灾情地图：![Mobile 灾情地图](../assets/screenshots/mobile-map.png)
+<div align="center">
 
-求助：![Mobile 求助](../assets/screenshots/mobile-report.png)
+**首页**
 
-帮忙：![Mobile 帮忙](../assets/screenshots/mobile-help.png)
+![Mobile 首页](../assets/screenshots/mobile-home.png)
 
-我的：![Mobile 我的-1](../assets/screenshots/mobile-profile-1.png)
+**灾情地图**
+
+![Mobile 灾情地图](../assets/screenshots/mobile-map.png)
+
+**求助**
+
+![Mobile 求助](../assets/screenshots/mobile-report.png)
+
+**帮忙**
+
+![Mobile 帮忙](../assets/screenshots/mobile-help.png)
+
+**我的**
+
+![Mobile 我的-1](../assets/screenshots/mobile-profile-1.png)
+
 ![Mobile 我的-2](../assets/screenshots/mobile-profile-2.png)
+
+</div>
 
 ---
 
