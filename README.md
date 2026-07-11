@@ -1,10 +1,8 @@
-# 🆘 EmergencyMSystem 应急协同平台 — PC / Mobile Web 端
+# 🆘 EmergencyMSystem 应急协同平台 — 前端
 
 > **广西洪涝灾害应急管理多端协同平台**  
-> Next.js 14 · TypeScript · Tailwind CSS  
-> Mobile 群众端（iOS 风格）+ PC 指挥中心（Bloomberg Terminal 风格）
-
-> 📱 微信小程序端请查看 [`wechat-miniapp/`](../wechat-miniapp)
+> Next.js 15 · TypeScript · Tailwind CSS  
+> 微信小程序风格群众端 + Bloomberg Terminal 风格指挥中心
 
 ---
 
@@ -24,7 +22,9 @@
 
 ## 📋 项目概览
 
-### Mobile Web 端（微信小程序风格）
+一个面向洪涝灾害场景的应急协同系统前端，提供**群众端 + 指挥中心端**双端体验：
+
+### Mobile 端（微信小程序风格）
 
 | 功能 | 说明 |
 |------|------|
@@ -58,25 +58,28 @@
 - Node.js 18+
 - npm
 
-### 安装 & 启动
+### 配置
 
 ```bash
-# 在 src/frontend/ 根目录
-npm install          # npm workspaces 统一安装
+# 安装依赖
+npm install
 
-# 启动 PC / Mobile Web 端
-npm run dev:pc       # Next.js dev server → http://localhost:3000
-# → Mobile Web:  http://localhost:3000/m
-# → PC:          http://localhost:3000/pc
-
-# 生产构建
-npm run build:pc
+# 可选：配置 API 地址（默认：环境变量）
+# NEXT_PUBLIC_API_BASE=http://localhost:8080/api/v1
 ```
 
-> 如仅在此目录单独开发：
-> ```bash
-> cd pc && npm install && npm run dev
-> ```
+### 启动
+
+```bash
+# 开发模式
+npm run dev
+# → Mobile:  http://localhost:3000/m
+# → PC:      http://localhost:3000/pc
+
+# 生产构建
+npm run build
+npm start
+```
 
 ---
 
@@ -84,45 +87,76 @@ npm run build:pc
 
 ```
 src/frontend/
-├── package.json              # 根 workspace（统一脚本）
-├── pc/                       # ← 当前目录：Next.js Web 端
-│   ├── src/
-│   │   ├── app/                          # App Router 页面
-│   │   │   ├── layout.tsx                # 全局布局 + AuthProvider
-│   │   │   ├── page.tsx                  # 入口（UA 判断跳转 PC/M）
-│   │   │   ├── pc/page.tsx               # PC 指挥中心（9视图 SPA）
-│   │   │   └── m/page.tsx                # Mobile 群众端（5 Tab SPA）
-│   │   │
-│   │   ├── api/                          # API 请求层（Axios 封装）
-│   │   │   ├── client.ts                 # JWT 自动注入 + 401 拦截
-│   │   │   ├── auth.ts                   # 登录/注册/用户信息
-│   │   │   ├── help-requests.ts          # 求助 CRUD
-│   │   │   ├── matches.ts                # 匹配 + GPS 追踪
-│   │   │   ├── volunteers.ts             # 志愿者/注册
-│   │   │   ├── sos.ts                    # SOS 触发/确认
-│   │   │   ├── notifications.ts          # 通知订阅/列表
-│   │   │   ├── dashboard.ts             # 指挥中心数据
-│   │   │   ├── alerts.ts                 # 灾情预警
-│   │   │   ├── reviews.ts                # 评价
-│   │   │   ├── calls.ts                  # 通话
-│   │   │   └── index.ts                  # 统一导出
-│   │   │
-│   │   ├── components/
-│   │   │   ├── shared/                   # 通用组件
-│   │   │   ├── mobile/                   # 群众端组件（TabBar/视图等）
-│   │   │   └── pc/                       # 指挥中心组件（9大视图）
-│   │   │
-│   │   ├── contexts/AuthContext.tsx      # 认证状态管理
-│   │   ├── hooks/useWebSocket.ts         # WebSocket 实时消息
-│   │   ├── types/                        # 数据模型 & API 类型
-│   │   └── lib/constants.ts             # 枚举中文映射
+├── src/
+│   ├── app/                          # Next.js App Router 页面
+│   │   ├── layout.tsx                # 全局布局 + AuthProvider
+│   │   ├── page.tsx                  # 入口（UA 判断跳转 PC/M）
+│   │   ├── pc/page.tsx               # PC 指挥中心（9视图 SPA）
+│   │   └── m/page.tsx                # Mobile 群众端（5 Tab SPA）
 │   │
-│   ├── tailwind.config.ts
-│   ├── next.config.mjs
-│   ├── tsconfig.json
-│   └── package.json
+│   ├── api/                          # API 请求层（Axios 封装）
+│   │   ├── client.ts                 # 底层：JWT 自动注入 + 401 拦截
+│   │   ├── auth.ts                   # 登录/注册/用户信息
+│   │   ├── help-requests.ts          # 求助 CRUD
+│   │   ├── matches.ts                # 匹配 + GPS 追踪
+│   │   ├── volunteers.ts             # 志愿者/注册
+│   │   ├── sos.ts                    # SOS 触发/确认
+│   │   ├── notifications.ts          # 通知订阅/列表
+│   │   ├── dashboard.ts             # 指挥中心数据
+│   │   ├── alerts.ts                 # 灾情预警
+│   │   ├── reviews.ts                # 评价
+│   │   ├── calls.ts                  # 通话
+│   │   └── index.ts                  # 统一导出
+│   │
+│   ├── components/
+│   │   ├── shared/
+│   │   │   ├── LoadingSpinner.tsx     # 加载 / 空状态
+│   │   │   └── StatusBadge.tsx        # 状态标签（10+ 映射）
+│   │   │
+│   │   ├── mobile/                   # 群众端组件
+│   │   │   ├── MobileLayout.tsx       # 布局 + 底部 TabBar
+│   │   │   ├── TabBar.tsx            # 5 Tab 导航
+│   │   │   ├── SOSButton.tsx         # SOS 长按 3 秒防误触
+│   │   │   ├── MobileHomeView.tsx    # 首页：灾情 + 快捷入口
+│   │   │   ├── MobileMapView.tsx     # 地图：求助 + 避难所
+│   │   │   ├── MobileReportView.tsx   # 上报：含代报 + 特殊群体
+│   │   │   ├── MobileHelpView.tsx     # 帮忙：附近任务列表
+│   │   │   ├── MobileMyReportsView.tsx# 上报记录
+│   │   │   ├── MobileSheltersView.tsx # 避难所列表
+│   │   │   ├── MobileNotificationsView.tsx# 通知中心
+│   │   │   └── MobileProfileView.tsx  # 个人中心 / 登录
+│   │   │
+│   │   └── pc/                       # 指挥中心组件
+│   │       ├── PCLayout.tsx           # 布局：Sidebar + Header
+│   │       ├── PCLoginView.tsx        # 登录页
+│   │       ├── Sidebar.tsx           # 9 项导航菜单
+│   │       ├── Header.tsx            # 顶部：标题 + 搜索 + 用户
+│   │       ├── DashboardView.tsx      # 指挥总览 KPI
+│   │       ├── HelpRequestsView.tsx   # 求助管理
+│   │       ├── MatchMonitorView.tsx   # 匹配监控
+│   │       ├── DisasterMapView.tsx    # 灾情地图
+│   │       ├── ResourcesView.tsx      # 物资调度
+│   │       ├── RescueTeamsView.tsx    # 救援队伍
+│   │       ├── VolunteersView.tsx     # 志愿者管理
+│   │       ├── SheltersView.tsx       # 安置点
+│   │       └── AnalyticsView.tsx      # 数据分析
+│   │
+│   ├── contexts/
+│   │   └── AuthContext.tsx           # 认证状态管理 + 自动刷新
+│   ├── hooks/
+│   │   └── useWebSocket.ts           # WebSocket 实时消息
+│   ├── types/
+│   │   ├── models.ts                 # 数据模型
+│   │   ├── api.ts                    # API 通用类型
+│   │   └── index.ts
+│   └── lib/
+│       └── constants.ts              # 20+ 枚举 -> 中文/颜色映射
 │
-└── wechat-miniapp/                        # 微信小程序端（Taro）
+├── tailwind.config.ts                # 设计系统令牌
+├── next.config.mjs
+├── tsconfig.json
+├── package.json
+└── FRONTEND_GUIDE.md                 # 开发指南
 ```
 
 ---
