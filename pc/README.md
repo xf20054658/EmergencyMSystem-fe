@@ -187,21 +187,21 @@ await matchApi.accept('M001', { eta_min: 15 });
 ---
 
 ## PC 端登录效果图
-指挥总览：![alt text](image-3.png)
+指挥总览：![PC 指挥总览](../assets/screenshots/pc-dashboard.png)
 
-求助管理：![alt text](image-4.png)
+求助管理：![PC 求助管理](../assets/screenshots/pc-help-requests.png)
 
 ## Mobile 端登录效果图
-首页：![alt text](7ab8da2c61fb0184ae08a663602096b6.png)
+首页：![Mobile 首页](../assets/screenshots/mobile-home.png)
 
-灾情地图：![alt text](92d0f44b1d104520cdef87a7ccb752fa.png)
+灾情地图：![Mobile 灾情地图](../assets/screenshots/mobile-map.png)
 
-求助：![alt text](55893c2276c525f9868fb1ae0697551d.png)
+求助：![Mobile 求助](../assets/screenshots/mobile-report.png)
 
-帮忙：![alt text](image-1.png)
+帮忙：![Mobile 帮忙](../assets/screenshots/mobile-help.png)
 
-我的：![alt text](335ccb6b0154aa04ec2dd6175a39cc6d.png)
-![alt text](image-2.png)
+我的：![Mobile 我的-1](../assets/screenshots/mobile-profile-1.png)
+![Mobile 我的-2](../assets/screenshots/mobile-profile-2.png)
 
 ---
 
