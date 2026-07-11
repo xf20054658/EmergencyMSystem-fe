@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   全局样式
+   ============================================================ */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: -apple-system, PingFang SC, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3a3a3e;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+@layer components {
+  /* PC 专用 */
+  .terminal-scrollbar::-webkit-scrollbar-thumb {
+    background: #2a2a2e;
+    border-radius: 3px;
+  }
+
+  /* Mobile 专用 */
+  .ios-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .ios-card {
+    border-radius: 12px;
+    background: #fff;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  /* 通用动画 */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+}
+
+/* ============================================================
+   预警横幅脉冲动画
+   ============================================================ */
+@keyframes alertPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes alertSlide {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+.alert-marquee {
+  animation: alertSlide 20s linear infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% { border-color: rgba(255, 59, 48, 0.3); }
+  50% { border-color: rgba(255, 59, 48, 0.8); }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

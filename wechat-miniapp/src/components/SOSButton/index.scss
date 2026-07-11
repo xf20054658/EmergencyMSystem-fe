@@ -1,0 +1,169 @@
+.sos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+// SOS 按钮
+.sos-btn {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: #FF3B30;
+  border: 8rpx solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 32rpx rgba(255, 59, 48, 0.4);
+  transition: transform 0.3s, background 0.3s;
+  position: relative;
+  user-select: none;
+
+  // 扩散光环动画
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    inset: -16rpx;
+    border-radius: 50%;
+    border: 4rpx solid rgba(255, 59, 48, 0.3);
+    animation: sos-ring 2s ease-out infinite;
+  }
+  &::after {
+    animation-delay: 1s;
+  }
+
+  &--active {
+    transform: scale(1.1);
+    background: #cc0000;
+  }
+
+  &__text {
+    color: #FFFFFF;
+    font-size: 40rpx;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes sos-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+// 确认弹窗
+.sos-dialog {
+  position: absolute;
+  bottom: 200rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520rpx;
+  z-index: 50;
+  animation: slideUp 0.3s ease-out;
+
+  &__content {
+    background: #FFFFFF;
+    border-radius: 32rpx;
+    padding: 48rpx 40rpx;
+    box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 80rpx;
+    display: block;
+    margin-bottom: 16rpx;
+  }
+
+  &__title {
+    display: block;
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 8rpx;
+  }
+
+  &__desc {
+    display: block;
+    font-size: 24rpx;
+    color: #8E8E93;
+    margin-bottom: 32rpx;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 16rpx;
+  }
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #F2F2F7;
+  color: #1C1C1E;
+  border-radius: 24rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.btn-confirm {
+  flex: 1;
+  background: #FF3B30;
+  color: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+// 倒计时遮罩
+.sos-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  &__count {
+    font-size: 120rpx;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 16rpx;
+  }
+
+  &__label {
+    font-size: 28rpx;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 64rpx;
+  }
+
+  &__cancel {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    border-radius: 24rpx;
+    padding: 20rpx 64rpx;
+    font-size: 28rpx;
+    border: none;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

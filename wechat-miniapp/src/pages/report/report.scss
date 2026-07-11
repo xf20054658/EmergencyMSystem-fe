@@ -1,0 +1,147 @@
+.page-report {
+  min-height: 100vh;
+  background: #F2F2F7;
+}
+
+.form-container {
+  padding: 32rpx 32rpx 160rpx;
+}
+
+.form-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-bottom: 40rpx;
+}
+
+.form-group {
+  margin-bottom: 32rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1C1C1E;
+  margin-bottom: 12rpx;
+}
+
+.input-field {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #1C1C1E;
+  box-sizing: border-box;
+  border: none;
+}
+
+.input-field::placeholder {
+  font-size: 28rpx;
+  color: #C7C7CC;
+}
+
+.textarea-field {
+  width: 100%;
+  min-height: 160rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  font-size: 28rpx;
+  color: #1C1C1E;
+  box-sizing: border-box;
+}
+
+// 紧急程度选择器
+.urgency-selector {
+  display: flex;
+  gap: 12rpx;
+}
+
+.urgency-option {
+  flex: 1;
+  padding: 16rpx 0;
+  text-align: center;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+  color: #8E8E93;
+
+  &--active {
+    background: #FF3B30;
+    color: #FFFFFF;
+  }
+}
+
+// 特殊群体标签
+.vul-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.vul-tag {
+  padding: 12rpx 24rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  color: #8E8E93;
+
+  &--active {
+    background: #FFF3CD;
+    color: #856404;
+    border: 2rpx solid #FFC107;
+  }
+}
+
+// 开关
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch {
+  width: 100rpx;
+  height: 56rpx;
+  background: #E5E5EA;
+  border-radius: 56rpx;
+  position: relative;
+  transition: background 0.3s;
+
+  &--on {
+    background: #34C759;
+    .switch-handle {
+      transform: translateX(44rpx);
+    }
+  }
+}
+
+.switch-handle {
+  width: 48rpx;
+  height: 48rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  position: absolute;
+  top: 4rpx;
+  left: 4rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+// 提交按钮
+.submit-btn {
+  width: 100%;
+  margin-top: 16rpx;
+  background: #FF3B30;
+  color: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+}
