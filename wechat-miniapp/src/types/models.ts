@@ -108,6 +108,22 @@ export interface Notification {
   created_at: string;
 }
 
+export interface VirtualPhoneBinding {
+  id: string;
+  match_id: string;
+  virtual_number: string;
+  expires_at: string;
+  bound_at: string;
+  unbound_at?: string;
+}
+
+export interface CallRecord {
+  call_id: string;
+  duration_sec: number;
+  call_status: string;
+  started_at: string;
+}
+
 export interface ApiResponse<T = unknown> {
   code: number;
   message: string;

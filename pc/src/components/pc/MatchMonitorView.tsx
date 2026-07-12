@@ -9,6 +9,7 @@ import { matchApi, dashboardApi } from '@/api';
 import type { Match, Escalation } from '@/types/models';
 import { MatchStatusBadge, TierBadge } from '@/components/shared/StatusBadge';
 import { LoadingSpinner, EmptyState } from '@/components/shared/LoadingSpinner';
+import { VirtualPhonePanel } from '@/components/shared/VirtualPhonePanel';
 import { MOCK_MATCHES, MOCK_ESCALATIONS } from '@/mock/data';
 
 /** 兼容后端 JSON 字段命名 */
@@ -117,6 +118,7 @@ export function MatchMonitorView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('');
+  const [callMatchId, setCallMatchId] = useState<string | null>(null);
   const isFirstLoad = useRef(true);
 
   const load = useCallback(async () => {
@@ -413,7 +415,7 @@ export function MatchMonitorView() {
                   </div>
 
                   {/* 右侧状态/操作 */}
-                  <div className="shrink-0 flex flex-col items-end justify-center px-4 gap-1.5 border-l border-terminal-border/50 min-w-[120px]">
+                  <div className="shrink-0 flex flex-col items-end justify-center px-4 gap-1.5 border-l border-terminal-border/50 min-w-[130px]">
                     <span className={`text-sm font-medium ${eta.color}`}>{eta.text}</span>
                     <div className="flex items-center gap-1.5">
                       {eta.actions?.map((action) => (
@@ -424,6 +426,15 @@ export function MatchMonitorView() {
                           {action}
                         </button>
                       ))}
+                      {/* 通话按钮：仅 accepted/enroute/waiting 状态可拨打 */}
+                      {['accepted', 'enroute', 'waiting'].includes(ms) && (
+                        <button
+                          onClick={() => setCallMatchId(m.id)}
+                          className="text-[10px] bg-terminal-accent/20 hover:bg-terminal-accent/40 text-terminal-accent px-2 py-0.5 rounded transition-colors font-medium"
+                        >
+                          通话
+                        </button>
+                      )}
                       {isNearTimeout && (
                         <span className="text-[10px] bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded">
                           即将超时
@@ -441,6 +452,14 @@ export function MatchMonitorView() {
             );
           })}
         </div>
+      )}
+
+      {/* ===== 隐私通话弹窗 ===== */}
+      {callMatchId && (
+        <VirtualPhonePanel
+          matchId={callMatchId}
+          onClose={() => setCallMatchId(null)}
+        />
       )}
     </div>
   );

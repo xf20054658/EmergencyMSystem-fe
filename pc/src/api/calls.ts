@@ -7,12 +7,12 @@ import type { VirtualPhoneBinding } from '@/types/models';
 
 export const callApi = {
   /** AXB 号码绑定 */
-  bind: (matchId: string) =>
-    post<VirtualPhoneBinding>(`/matches/${matchId}/bind`),
+  bind: (matchId: string, provider: 'aliyun' | 'tencent' = 'aliyun') =>
+    post<VirtualPhoneBinding>(`/matches/${matchId}/bind`, { provider }),
 
   /** 发起通话 */
-  call: (matchId: string) =>
-    post<{ call_id: string; call_status: string }>(`/matches/${matchId}/call`),
+  call: (matchId: string, callType: 'voip' | 'phone' = 'voip') =>
+    post<{ call_id: string; call_status: string }>(`/matches/${matchId}/call`, { call_type: callType }),
 
   /** 解绑 */
   unbind: (matchId: string) =>
