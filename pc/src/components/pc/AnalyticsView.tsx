@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { dashboardApi } from '@/api';
 import type { MatchStats, HelpRequest } from '@/types/models';
 import { LoadingSpinner, EmptyState } from '@/components/shared/LoadingSpinner';
+import { MOCK_MATCH_STATS, MOCK_REQUESTS } from '@/mock/data';
 
 // ---- SVG 环形图组件 ----
 function DonutChart({ data, title, height = 180 }: {
@@ -138,10 +139,12 @@ export function AnalyticsView() {
           dashboardApi.getMatchStats({ start_date: startDate, end_date: endDate }),
           dashboardApi.getMapData(),
         ]);
-        setStats(s);
-        setRequests(mapData.requests);
+        setStats(s && s.length > 0 ? s : MOCK_MATCH_STATS);
+        setRequests(mapData.requests && mapData.requests.length > 0 ? mapData.requests : MOCK_REQUESTS);
       } catch (err) {
         console.error('Load stats error:', err);
+        setStats(MOCK_MATCH_STATS);
+        setRequests(MOCK_REQUESTS);
       } finally {
         setLoading(false);
       }

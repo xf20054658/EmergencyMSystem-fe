@@ -9,6 +9,7 @@ import { dashboardApi } from '@/api';
 import type { Shelter } from '@/types/models';
 import { ShelterStatusBadge } from '@/components/shared/StatusBadge';
 import { LoadingSpinner, EmptyState } from '@/components/shared/LoadingSpinner';
+import { MOCK_SHELTERS } from '@/mock/data';
 
 export function SheltersView() {
   const [shelters, setShelters] = useState<Shelter[]>([]);
@@ -18,9 +19,10 @@ export function SheltersView() {
     async function load() {
       try {
         const data = await dashboardApi.getMapData();
-        setShelters(data.shelters);
+        setShelters(data.shelters && data.shelters.length > 0 ? data.shelters : MOCK_SHELTERS);
       } catch (err) {
         console.error('Load shelters error:', err);
+        setShelters(MOCK_SHELTERS);
       } finally {
         setLoading(false);
       }

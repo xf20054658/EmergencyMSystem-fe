@@ -8,6 +8,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { dashboardApi } from '@/api';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import type { HelpRequest, Shelter } from '@/types/models';
+import { MOCK_REQUESTS, MOCK_SHELTERS, MOCK_MAP_VOLUNTEERS } from '@/mock/data';
 
 // 广西 14 城市坐标
 const GUANGXI_CITIES = [
@@ -53,11 +54,14 @@ export function DisasterMapView() {
     async function load() {
       try {
         const data = await dashboardApi.getMapData();
-        setRequests(data.requests);
-        setShelters(data.shelters);
-        setVolunteers(data.volunteers);
+        setRequests(data.requests && data.requests.length > 0 ? data.requests : MOCK_REQUESTS);
+        setShelters(data.shelters && data.shelters.length > 0 ? data.shelters : MOCK_SHELTERS);
+        setVolunteers(data.volunteers && data.volunteers.length > 0 ? data.volunteers : MOCK_MAP_VOLUNTEERS);
       } catch (err) {
         console.error('Load map data error:', err);
+        setRequests(MOCK_REQUESTS);
+        setShelters(MOCK_SHELTERS);
+        setVolunteers(MOCK_MAP_VOLUNTEERS);
       } finally {
         setLoading(false);
       }

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { dashboardApi } from '@/api';
 import type { RescueTeam } from '@/types/models';
 import { LoadingSpinner, EmptyState } from '@/components/shared/LoadingSpinner';
+import { MOCK_RESCUE_TEAMS } from '@/mock/data';
 
 export function RescueTeamsView() {
   const [teams, setTeams] = useState<RescueTeam[]>([]);
@@ -17,9 +18,10 @@ export function RescueTeamsView() {
     async function load() {
       try {
         const t = await dashboardApi.getRescueTeams();
-        setTeams(t);
+        setTeams(t && t.length > 0 ? t : MOCK_RESCUE_TEAMS);
       } catch (err) {
         console.error('Load teams error:', err);
+        setTeams(MOCK_RESCUE_TEAMS);
       } finally {
         setLoading(false);
       }

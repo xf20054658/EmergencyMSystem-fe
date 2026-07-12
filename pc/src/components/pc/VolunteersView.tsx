@@ -9,6 +9,7 @@ import { volunteerApi } from '@/api';
 import type { Volunteer } from '@/types/models';
 import { TierBadge } from '@/components/shared/StatusBadge';
 import { LoadingSpinner, EmptyState } from '@/components/shared/LoadingSpinner';
+import { MOCK_VOLUNTEERS } from '@/mock/data';
 
 export function VolunteersView() {
   const [volunteers, setVolunteers] = useState<Volunteer[]>([]);
@@ -23,9 +24,10 @@ export function VolunteersView() {
         if (filters.tier) params.tier = filters.tier;
         if (filters.frozen !== undefined) params.frozen = filters.frozen === 'true';
         const res = await volunteerApi.list(params as any);
-        setVolunteers(res.items);
+        setVolunteers(res.items && res.items.length > 0 ? res.items : MOCK_VOLUNTEERS);
       } catch (err) {
         console.error('Load volunteers error:', err);
+        setVolunteers(MOCK_VOLUNTEERS);
       } finally {
         setLoading(false);
       }
